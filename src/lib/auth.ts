@@ -1,4 +1,4 @@
-import { betterAuth } from "better-auth";
+import { betterAuth } from "better-auth/minimal"
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "@/lib/prisma"; //might cause an error
 
@@ -8,5 +8,6 @@ export const auth = betterAuth({
     }),
     emailAndPassword: { 
         enabled: true, 
+        autoSignIn: true,
       },
 })
