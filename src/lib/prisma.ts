@@ -1,3 +1,5 @@
+import "server-only";
+
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/generated/prisma/client";
 
@@ -15,7 +17,16 @@ function createPrismaClient() {
   return new PrismaClient({ adapter });
 }
 
-export const prisma = globalForPrisma.prisma ?? createPrismaClient();
+function isValidPrismaClient(
+  client: PrismaClient | undefined,
+): client is PrismaClient {
+  return Boolean(client && typeof client.user?.findMany === "function");
+}
+
+const cached = globalForPrisma.prisma;
+export const prisma = isValidPrismaClient(cached)
+  ? cached
+  : createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
