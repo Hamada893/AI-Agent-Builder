@@ -77,6 +77,7 @@ export function RegisterForm() {
                                             type="button"
                                             disabled={isPending}
                                         >
+                                            <Image src="/github.svg" alt="Github" width={20} height={20} />
                                             Continue with Github
                                         </Button>
                                         <Button 
@@ -85,7 +86,8 @@ export function RegisterForm() {
                                             type="button"
                                             disabled={isPending}
                                         >
-                                            Continue with Google
+                                            <Image src="/google.svg" alt="Google" width={20} height={20} />
+                                            wContinue with Google
                                         </Button>
                                     </div>
                                     <div className="grid gap-6">
