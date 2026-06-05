@@ -14,24 +14,29 @@ import { Input } from "@/components/ui/input"
 // import { authClient } from "@/lib/auth-client"
 import { cn } from "@/lib/utils"
 
-const loginSchema = z.object({
+const registerSchema = z.object({
     email: z.email( "Please enter a valid email address" ),
     password: z.string().min(1, "Password is required"),
+    confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword", "password"],
 })
 
-type LoginFormValues = z.infer<typeof loginSchema>
+type RegisterFormValues = z.infer<typeof registerSchema>
 
-export function LoginForm() {
+export function RegisterForm() {
     const router = useRouter()
-    const form = useForm<LoginFormValues>({
-        resolver: zodResolver(loginSchema),
+    const form = useForm<RegisterFormValues>({
+        resolver: zodResolver(registerSchema),
         defaultValues: {
             email: "",
             password: "",
+            confirmPassword: "",
         },
     })
 
-    const onSubmit = async (values: LoginFormValues) => {
+    const onSubmit = async (values: RegisterFormValues) => {
         console.log(values)
     }
 
@@ -42,10 +47,10 @@ export function LoginForm() {
             <Card>
                 <CardHeader className="text-center">
                     <CardTitle>
-                        Welcome Back
+                        Get Started
                     </CardTitle>
                     <CardDescription>
-                        Login to Continue
+                        Create your account to get started
                     </CardDescription>
                 </CardHeader>
                     <CardContent>
@@ -105,18 +110,35 @@ export function LoginForm() {
                                                 </FormItem>
                                             )}
                                         />
+                                        <FormField 
+                                            control={form.control}
+                                            name="confirmPassword"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Confirm Password</FormLabel>
+                                                    <FormControl>
+                                                        <Input 
+                                                            {...field} 
+                                                            placeholder="Confirm your password" 
+                                                            type="password" 
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
                                         <Button 
                                             type="submit" 
                                             disabled={isPending} 
-                                            className="w-full"
+                                            className="w-full cursor-pointer"
                                         >
-                                            Login
+                                            Sign Up
                                         </Button>
                                     </div>
                                     <div className="text-center text-sm">
-                                        Don't have an account ? {" "}
-                                        <Link href="/signup" className="underline underline-offset-4">
-                                            Sign up
+                                        Already have an account ? {" "}
+                                        <Link href="/login" className="underline underline-offset-4">
+                                            Login
                                         </Link>
                                     </div>
                                 </div>
