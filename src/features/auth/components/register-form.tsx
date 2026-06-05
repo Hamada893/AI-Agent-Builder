@@ -11,8 +11,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-// import { authClient } from "@/lib/auth-client"
-import { cn } from "@/lib/utils"
 import { authClient } from "@/lib/auth-client"
 
 const registerSchema = z.object({

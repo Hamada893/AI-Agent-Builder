@@ -1,18 +1,19 @@
-"use client"
-import { authClient } from "@/lib/auth-client"
-import { Button } from "@/components/ui/button"
-import { LogOutIcon } from "lucide-react"
+import { requireAuth } from "@/lib/auth-utils"
+import { caller } from "@/trpc/server"
+import { LogoutButton } from "@/app/logout"
 
-export default function Page() {
-  const { data } = authClient.useSession()
+const Page = async () => {
+  await requireAuth()
+  const data = await caller.getUsers()
 
   return (
-    <div className="min-h-screen min-w-screen flex items-center justify-center">
-      {JSON.stringify(data)}
-      {data && <Button onClick={() => authClient.signOut()}>
-        <LogOutIcon className="size-4" />
-        Logout
-      </Button>}
+    <div className="min-h-screen min-w-screen flex items-center justify-center flex-col gap-y-6">
+      Protected server component
+      <div>
+      {JSON.stringify(data, null, 2)}
+      </div>
+      <LogoutButton />
     </div>
   );
 }
+ export default Page
