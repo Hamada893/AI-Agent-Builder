@@ -1,4 +1,4 @@
-import "server-only"; //comment this if you want to use the prisma client in the client
+// import "server-only"; //comment this if you want to use the prisma client in the client
 
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/generated/prisma/client";
