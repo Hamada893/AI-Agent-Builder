@@ -8,6 +8,8 @@ const google = createGoogleGenerativeAI()
 export const execute = inngest.createFunction(
   { id: "execute-ai", triggers: { event: "execute/ai" } },
   async ({ event, step }) => {
+    await step.sleep("pretend", "5s");
+
     const { steps } = await step.ai.wrap(
         "gemini-generate-text",
         generateText, 
