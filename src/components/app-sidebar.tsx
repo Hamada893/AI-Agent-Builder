@@ -59,7 +59,7 @@ const AppSidebar = () => {
             <SidebarHeader>
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild className="gap-x-4 h-10 px-4"> 
-                        <Link prefetch href="/">
+                        <Link prefetch href="/workflows">
                             <Image src="/logo.svg" alt="Logo" width={30} height={30} />
                             <span className="font-semibold text-sm">AI Agent Builder</span>
                         </Link>
