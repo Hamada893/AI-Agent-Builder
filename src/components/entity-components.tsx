@@ -13,7 +13,7 @@ type EntityHeaderProps = {
     | { onNew: () => void; newButtonHref?: never}
     | { newButtonHref: string; onNew?: never}
     | { onNew?: never; newButtonHref?: never}
-);
+)
 
 export const EntityHeader = ({
     title, 
@@ -42,7 +42,7 @@ export const EntityHeader = ({
                     <PlusIcon className="size-4"/>
                     {newButtonLabel}
                 </Button>
-            )}; 
+            )} 
             {newButtonHref && !onNew && (
                 <Button 
                     size="sm" 
@@ -53,7 +53,7 @@ export const EntityHeader = ({
                         {newButtonLabel}
                     </Link>
                 </Button>
-            )}; 
+            )} 
         </div>
     )
 };
@@ -73,8 +73,13 @@ export const EntityContainer = ({
 }: EntityContainerProps) => {
     return (
         <div className="p-4 md:px-10 md:py-6 h-full">
-            <div className="mx-auto max-w-screen-xl w-full flex flex-col gap-y-8 h-full">
+            <div className="mx-auto max-w-7xl w-full flex flex-col gap-y-8 h-full">
                 {header}
+                <div className="flex flex-col gap-y-4 h-full">
+                    {search}
+                    {children}
+                </div>
+                {pagination}
             </div>
         </div>
     )

@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma";
-import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
+import { createTRPCRouter, premiumProcedure, protectedProcedure } from "@/trpc/init";
 import { z } from "zod";
 
 export const workflowsRouter = createTRPCRouter({
-  createWorkflow: protectedProcedure.mutation(async({ ctx}) => {
+  create: premiumProcedure.mutation(async({ ctx}) => {
     return prisma.workflow.create({
       data: {
         name: "Test Workflow",
