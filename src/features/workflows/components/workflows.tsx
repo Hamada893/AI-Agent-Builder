@@ -158,7 +158,7 @@ export const WorkflowItem = ({
                 </>
             }
             image={
-                <div className="size-8 flex items-center justifycenter">
+                <div className="size-8 flex items-center justify-center">
                     <WorkflowIcon className="size-5 text-muted-foreground" />
                 </div>
             }
