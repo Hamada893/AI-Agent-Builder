@@ -1,4 +1,4 @@
-import { Loader2Icon, PlusIcon } from "lucide-react";
+import { AlertTriangleIcon, Loader2Icon, PlusIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -147,20 +147,27 @@ export const EntityPagination = ({
     )
 }
 
+//Used to display a loading, error, or empty state (same props)
 interface StateViewProps {
     message?: string
 }
 
-interface LoadingViewProps extends StateViewProps {
-    entity?: string
-}
 
-export const LoadingView = ({
-    message
-}: LoadingViewProps) => {
+export const LoadingView = ({ message }: StateViewProps) => {
     return (
         <div className="flex justify-center items-center h-full flex-1 flex-col gap-y-4">
             <Loader2Icon className="size-6 animate-spin text-primary"/>
+            {!!message && (<p className="text-sm text-muted-foreground">
+                {message}
+            </p>)}
+        </div>
+    )
+}
+
+export const ErrorView = ({ message }: StateViewProps) => {
+    return (
+        <div className="flex justify-center items-center h-full flex-1 flex-col gap-y-4">
+            <AlertTriangleIcon className="size-6 text-primary"/>
             {!!message && (<p className="text-sm text-muted-foreground">
                 {message}
             </p>)}

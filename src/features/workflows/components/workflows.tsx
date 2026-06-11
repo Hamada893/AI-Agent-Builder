@@ -2,7 +2,14 @@
 
 import { useUpgradeModal } from "@/hooks/use-upgrade-modal";
 import { useCreateWorkflow, useSuspenseWorkflows } from "../hooks/use-workflows"
-import { EntityContainer, EntityHeader, EntityPagination, EntitySearch, LoadingView } from "@/components/entity-components";
+import { 
+    EntityContainer, 
+    EntityHeader, 
+    EntityPagination, 
+    EntitySearch, 
+    ErrorView, 
+    LoadingView 
+} from "@/components/entity-components";
 import { useRouter } from "next/navigation";
 import { useWorkflowsParams } from "../hooks/use-workflows-params";
 import { useEntitySearch } from "@/hooks/use-entity-search";
@@ -91,5 +98,11 @@ export const WorkflowsContainer = ({ children }: { children: React.ReactNode }) 
 export const WorkflowsLoading = () => {
     return (
         <LoadingView message="Loading workflows..." />
+    )
+}
+
+export const WorkflowsError = () => {
+    return (
+        <ErrorView message="Error loading workflows" />
     )
 }
