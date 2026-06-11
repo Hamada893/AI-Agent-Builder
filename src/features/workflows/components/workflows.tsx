@@ -3,12 +3,15 @@
 import { useUpgradeModal } from "@/hooks/use-upgrade-modal";
 import { useCreateWorkflow, useSuspenseWorkflows } from "../hooks/use-workflows"
 import { 
+    EmptyView,
     EntityContainer, 
     EntityHeader, 
     EntityPagination, 
     EntitySearch, 
     ErrorView, 
-    LoadingView 
+    LoadingView,
+    EntityList,
+
 } from "@/components/entity-components";
 import { useRouter } from "next/navigation";
 import { useWorkflowsParams } from "../hooks/use-workflows-params";
@@ -31,12 +34,17 @@ export const WorkflowsList = () => {
     const workflows = useSuspenseWorkflows()
 
     return (
-        <div className="flex-1 flex justify-center items-center">
-            <p>
-                {JSON.stringify(workflows.data, null, 2)}
-            </p>
-        </div>
-    );
+        <EntityList 
+            items={workflows.data.items}
+            getKey={(workflow) => workflow.id}
+            renderItem={(workflow) => (
+                <p>
+                    {workflow.name}
+                </p>
+            )}
+            emptyView={<WorkflowsEmpty />}
+        />
+    )
 };
 
 export const WorkflowsHeader = ({ disabled }: { disabled?: boolean }) => {
@@ -104,5 +112,30 @@ export const WorkflowsLoading = () => {
 export const WorkflowsError = () => {
     return (
         <ErrorView message="Error loading workflows" />
+    )
+}
+
+export const WorkflowsEmpty = () => {
+    const createWorkflow = useCreateWorkflow();
+    const { handleError, modal } = useUpgradeModal();
+    const router = useRouter();
+    const handleCreate = () => {
+        createWorkflow.mutate(undefined, {
+            onError: (error) => {
+                handleError(error);
+            },
+            onSuccess: (data) => {
+                router.push(`/workflows/${data.id}`);
+            }
+        })
+    }
+    return (
+        <>  
+            {modal}
+            <EmptyView 
+                onNew={handleCreate}
+                message="No workflows found. Get started by creating a new workflow."
+            />
+        </>
     )
 }
