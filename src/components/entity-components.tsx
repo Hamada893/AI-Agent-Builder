@@ -295,7 +295,7 @@ export function EntityItem<T>({
             <Card
                 className={cn(
                     "p-4 shadow-none hover:shadow-sm cursor-pointer",
-                    isRemoving && "opacity-50 pointer-not-allowed",
+                    isRemoving && "opacity-50 cursor-not-allowed",
                     className,
                 )}
             >
